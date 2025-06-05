@@ -27,7 +27,9 @@ const events = ref<Event[]>([]);  //  events is an array of Event objects
 onMounted(async () => {
   console.log('--- Fetching events ---');
   try {
-    const response = await fetch('http://localhost:8080/events');
+    // Use the VITE_APP_API_BASE_URL environment variable
+    const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL || 'http://localhost:8080'; // Fallback for safety
+    const response = await fetch(`${API_BASE_URL}/events`);
     console.log('Response:', response);
     console.log('Response Status:', response.status);
     if (!response.ok) {

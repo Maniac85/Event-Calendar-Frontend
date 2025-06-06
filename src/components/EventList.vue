@@ -29,6 +29,7 @@ onMounted(async () => {
   try {
     // Use the VITE_APP_API_BASE_URL environment variable
     const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL || 'http://localhost:8080'; // Fallback for safety
+    console.log('API Base URL:', API_BASE_URL);
     const response = await fetch(`${API_BASE_URL}/events`);
     console.log('Response:', response);
     console.log('Response Status:', response.status);

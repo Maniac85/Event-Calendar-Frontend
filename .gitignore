@@ -79,7 +79,8 @@ web_modules/
 .env.test.local
 .env.production.local
 .env.local
-
+.env.development
+.env.production
 # ==============================================================================
 #  Bundler/Builder Caches
 # ==============================================================================
@@ -120,3 +121,4 @@ out
 .tern-port
 .vscode-test
 *.local
+/.vscode/

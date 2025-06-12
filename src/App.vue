@@ -1,12 +1,9 @@
 <template>
   <main>
-    <EventList />
+    <router-view></router-view>
   </main>
 </template>
 
-<script setup lang="ts">
-import EventList from './components/EventList.vue';
-</script>
+<script setup lang="ts"></script>
 
-<style scoped>
-</style>
+<style scoped></style>

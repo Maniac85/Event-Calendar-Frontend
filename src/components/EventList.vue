@@ -12,35 +12,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue'
 
 interface Event {
-  id: number;         //  Or number if your backend sends numbers
-  title: string;
-  description: string;
-  startDateTime: string; //  Or string if that's what the backend sends
-  endDateTime: string;   //  Or string
+  id: number //  Or number if your backend sends numbers
+  title: string
+  description: string
+  startDateTime: string //  Or string if that's what the backend sends
+  endDateTime: string //  Or string
 }
 
-const events = ref<Event[]>([]);  //  events is an array of Event objects
+const events = ref<Event[]>([]) //  events is an array of Event objects
 
 onMounted(async () => {
-  console.log('--- Fetching events ---');
+  console.log('--- Fetching events ---')
   try {
-    const response = await fetch('http://localhost:8080/events');
-    console.log('Response:', response);
-    console.log('Response Status:', response.status);
+    // Verwende die korrekte Umgebungsvariable
+    const backendUrl = import.meta.env.VITE_APP_API_BASE_URL // Vite erkennt diese automatisch
+
+    // Fallback für lokale Entwicklung, falls Variable nicht gesetzt ist (obwohl .env.development es tun sollte)
+    const urlToFetch = backendUrl || 'http://localhost:8080'
+    const response = await fetch(`${urlToFetch}/events`)
+    console.log('Response:', response)
+    console.log('Response Status:', response.status)
     if (!response.ok) {
-      console.error('HTTP error!', response.status);
-      return; // Stop if there's an error
+      console.error('HTTP error!', response.status)
+      return // Stop if there's an error
     }
-    const data = await response.json();
-    console.log('Data:', data);
-    events.value = data as Event[];
-    console.log('Events.value:', events.value);
+    const data = await response.json()
+    console.log('Data:', data)
+    events.value = data as Event[]
+    console.log('Events.value:', events.value)
   } catch (error) {
-    console.error('Fetch error:', error);
+    console.error('Fetch error:', error)
   }
-  console.log('--- Fetching complete ---');
-});
+  console.log('--- Fetching complete ---')
+})
 </script>

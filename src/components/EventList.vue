@@ -24,7 +24,8 @@ interface Event {
 
 const events = ref<Event[]>([]) //  events is an array of Event objects
 
-onMounted(async () => {
+// Die fetchData-Funktion in eine separate Funktion auslagern
+const fetchEvents = async () => {
   console.log('--- Fetching events ---')
   try {
     // Verwende die korrekte Umgebungsvariable
@@ -47,5 +48,11 @@ onMounted(async () => {
     console.error('Fetch error:', error)
   }
   console.log('--- Fetching complete ---')
+}
+onMounted(fetchEvents) // Beim Mounten einmal Events laden
+
+// 1. Die fetchEvents-Funktion nach außen exponieren
+defineExpose({
+  fetchEvents, // Macht die fetchEvents-Funktion von außerhalb der Komponente zugänglich
 })
 </script>
